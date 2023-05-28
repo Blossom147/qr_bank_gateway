@@ -29,6 +29,9 @@ public class TransactionActivityEntity {
 
     private String activityStepStatus;
 
+    @Column(name = "reqResgb")
+    private String reqResgb;
+
     @ManyToOne
     @JoinColumn(name = "transaction_id", nullable = false)
     private TransactionEntity transaction;

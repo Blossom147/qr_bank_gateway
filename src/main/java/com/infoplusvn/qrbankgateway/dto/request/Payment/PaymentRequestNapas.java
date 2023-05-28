@@ -9,8 +9,7 @@ import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Data
-public
-class PaymentRequestNAPAS {
+public class PaymentRequestNapas {
 
     @Valid
     private HeaderNapas header;

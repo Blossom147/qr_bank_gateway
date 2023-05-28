@@ -1,4 +1,4 @@
-package com.infoplusvn.qrbankgateway.dto.common;
+package com.infoplusvn.qrbankgateway.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,4 +17,19 @@ public class UserDTORoleAdmin {
     private LocalDateTime createOn;
 
     private String roles;
+
+    private String password;
+
+    private String email;
+
+    private String phone;
+
+    private String company;
+
+    private String address;
+
+    private String firstName;
+
+    private String lastName;
+
 }

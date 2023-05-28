@@ -8,7 +8,7 @@ import javax.validation.constraints.NotBlank;
 
 
 @Data
-public class GwRequest {
+public class LookupIssuerRequestGW {
 
         @Valid
         private HeaderGW headerGW;

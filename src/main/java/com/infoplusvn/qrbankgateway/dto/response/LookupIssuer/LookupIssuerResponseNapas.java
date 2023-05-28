@@ -8,7 +8,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 @Data
-public class NapasResponse {
+public class LookupIssuerResponseNapas {
     @Valid
     private HeaderNapas headerNapas;
 

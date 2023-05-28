@@ -6,7 +6,7 @@ import lombok.Data;
 import javax.validation.Valid;
 
 @Data
-public class NapasRequest {
+public class LookupIssuerRequestNapas {
     @Valid
     private HeaderNapas headerNapas;
 

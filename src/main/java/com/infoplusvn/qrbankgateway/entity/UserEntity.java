@@ -50,5 +50,4 @@ public class UserEntity implements Serializable {
 
     private String roles;
 
-
 }

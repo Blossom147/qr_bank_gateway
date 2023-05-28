@@ -8,6 +8,7 @@ import com.infoplusvn.qrbankgateway.dto.response.DeCodeQRResponse;
 import com.infoplusvn.qrbankgateway.dto.response.GenerateQRResponse;
 import com.infoplusvn.qrbankgateway.service.QrService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -23,21 +24,20 @@ public class QRController {
 
 
 
+
+
     @PostMapping(value = "/genQR")
     public GenerateQRResponse generateQRCode(@RequestBody GenerateQRRequest generateQRRequest) throws IOException, WriterException {
-
         return qrService.genQRResponse(generateQRRequest);
-
     }
 
     @PostMapping(value = "/readQR")
     public DeCodeQRResponse readQRCode(@RequestBody DeCodeQRRequest deCodeQRRequest) throws UnsupportedEncodingException {
 
         return qrService.parseQRString(deCodeQRRequest);
-
     }
 
-    @PostMapping(value = "/genAdQR")
+    @PostMapping(value = "/genAdQR", consumes = MediaType.APPLICATION_JSON_VALUE)
     public GenerateQRResponse genAdQR(@RequestBody GenerateAdQR generateAdQR) throws IOException, WriterException {
         return qrService.genAdQR(generateAdQR);
     }

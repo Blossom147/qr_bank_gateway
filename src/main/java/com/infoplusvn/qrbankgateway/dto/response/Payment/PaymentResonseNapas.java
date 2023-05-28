@@ -5,8 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public
-class PaymentResponseNAPAS {
+public class PaymentResonseNapas {
 
     private Payload payload;
 

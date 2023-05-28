@@ -1,5 +1,6 @@
 package com.infoplusvn.qrbankgateway.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.infoplusvn.qrbankgateway.dto.request.Payment.PaymentRequestGW;
 import com.infoplusvn.qrbankgateway.dto.response.Payment.PaymentResponseGW;
 import com.infoplusvn.qrbankgateway.service.QRPaymentService;
@@ -17,7 +18,7 @@ public class PaymentController {
     QRPaymentService qrPaymentService;
 
     @PostMapping(value = "/payment")
-    public PaymentResponseGW genPaymentResGW(@RequestBody PaymentRequestGW paymentRequestGW) throws UnsupportedEncodingException {
+    public PaymentResponseGW genPaymentResGW(@RequestBody PaymentRequestGW paymentRequestGW) throws UnsupportedEncodingException, JsonProcessingException {
 
         return qrPaymentService.genPaymentResGW(paymentRequestGW);
 

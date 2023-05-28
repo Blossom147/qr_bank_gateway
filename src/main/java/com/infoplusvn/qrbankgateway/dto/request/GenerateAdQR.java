@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Data
 public class GenerateAdQR {
@@ -21,15 +22,18 @@ public class GenerateAdQR {
         @Valid
         private QrInfo qrInfo;
 
+        @NotNull
+        private String createdUser;
+
+        private String channel;
+
     }
 
     @lombok.Data
     public static class QrInfo {
 
-        @NotBlank
         private String adType;
 
-        @NotBlank
         private String text;
 
 

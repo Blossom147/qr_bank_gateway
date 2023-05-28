@@ -26,12 +26,13 @@ public class BankEntity {
     @Column(name = "bank_code")
     private String bankCode;
 
+    @Column(name = "bin")
     private String bin;
 
     @Column(name = "short_name")
     private String shortName;
 
-    private String logo;
+    private String logo = "https://api.vietqr.io/img/ICB.png";
 
 
 }

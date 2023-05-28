@@ -47,17 +47,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable()
                 .cors().and()
-                .authorizeRequests().antMatchers("/infogw/qr/v1/oauth/token",
+                .authorizeRequests().antMatchers(
                         "/infogw/qr/v3/banks",
+                        "/infogw/qr/v1/oauth/token",
                         "/infogw/qr/v1/readQR",
+                        "/infogw/qr/v1/genAdQR",
+                        "/infogw/qr/v1/deleteUser/{username}",
+                        "/infogw/qr/v1/adminGetUser/{username}",
                         "/infogw/qr/v1/getUser/{userName}",
+                        "/infogw/qr/v1/update/{userName}",
+                        "/infogw/qr/v1/transactions",
+                        "/infogw/qr/v1/transactions/{transaction_id}",
+                        "/infogw/qr/v1/updateUser",
+                        "/infogw/qr/v1/getBank/{bin}",
                         "/infogw/qr/v1/issuer/lookup",
                         "/infogw/qr/v1/genQR",
-                        "/infogw/qr/v1/getAllUsers",
+                        "/infogw/qr/v1/issuer/payment",
                         "/infogw/qr/v1/issuer/lookup/res",
-                        "/infogw/qr/v1/issuer/lookup/",
+                        "/infogw/qr/v1/getBin/{shortName}",
+                        "/infogw/qr/v1/getAllUsers",
                         "/infogw/qr/v1/issuer/lookup/req",
-
+                        "/infogw/qr/v1/banks",
                         "/infogw/qr/v1/createUser")
                 .permitAll()
                 .anyRequest().authenticated().and()

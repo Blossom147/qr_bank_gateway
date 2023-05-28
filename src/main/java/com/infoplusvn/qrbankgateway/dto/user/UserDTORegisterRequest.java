@@ -1,4 +1,4 @@
-package com.infoplusvn.qrbankgateway.dto.request;
+package com.infoplusvn.qrbankgateway.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

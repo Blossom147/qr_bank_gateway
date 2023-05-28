@@ -1,6 +1,7 @@
 package com.infoplusvn.qrbankgateway;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestClassOrder;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.web.bind.annotation.RequestHeader;
 

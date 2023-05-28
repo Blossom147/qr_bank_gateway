@@ -1,4 +1,4 @@
-package com.infoplusvn.qrbankgateway.service;
+package com.infoplusvn.qrbankgateway.service.Impl;
 
 import com.infoplusvn.qrbankgateway.constant.CommonConstant;
 import com.infoplusvn.qrbankgateway.dto.response.DataResponse;

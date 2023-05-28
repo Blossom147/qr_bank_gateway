@@ -2,9 +2,9 @@ package com.infoplusvn.qrbankgateway.service;
 
 import com.infoplusvn.qrbankgateway.constant.CommonConstant;
 import com.infoplusvn.qrbankgateway.dto.UserAccountInfo;
-import com.infoplusvn.qrbankgateway.dto.common.UserDTORoleAdmin;
-import com.infoplusvn.qrbankgateway.dto.common.UserDTORoleUser;
-import com.infoplusvn.qrbankgateway.dto.request.UserDTORegisterRequest;
+import com.infoplusvn.qrbankgateway.dto.user.UserDTORoleAdmin;
+import com.infoplusvn.qrbankgateway.dto.user.UserDTORoleUser;
+import com.infoplusvn.qrbankgateway.dto.user.UserDTORegisterRequest;
 import com.infoplusvn.qrbankgateway.entity.UserEntity;
 import com.infoplusvn.qrbankgateway.repo.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +44,7 @@ public class UserService {
         return userRepo.save(userEntity);
     }
 
+
     public UserEntity roleUserUpdateUser(UserDTORoleUser userRequest) {
 
         UserEntity userEntity = userRepo.findByUsername(userRequest.getUsername());
@@ -60,6 +61,18 @@ public class UserService {
         return userRepo.save(userEntity);
     }
 
+    public UserEntity roleAdminUpdateUser(UserDTORoleAdmin userDTO){
+        UserEntity userEntity = userRepo.findByUsername(userDTO.getUsername());
+//        userEntity.setUsername(userDTO.getUsername());
+//        userEntity.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        userEntity.setEmail(userDTO.getEmail());
+        userEntity.setPhone(userDTO.getPhone());
+        userEntity.setEnabled(userDTO.isEnabled());
+        userEntity.setRoles(userDTO.getRoles());
+
+        return userRepo.save(userEntity);
+
+    }
 
     public UserEntity deactiveUser(UserDTORoleAdmin userRequest) {
 
@@ -67,6 +80,12 @@ public class UserService {
         user.setEnabled(false);
         return userRepo.save(user);
     }
+
+    public void  deleteByUserName(String username){
+        userRepo.deleteByUsername(username);
+    }
+
+
 
     public UserEntity getUserById(long id) {
         return userRepo.findOneById(id);
@@ -79,4 +98,8 @@ public class UserService {
     public UserEntity getUserByEmail(String email) {
         return userRepo.findByEmail(email);
     }
+
+//    public UserEntity getEmailByUserName
+//    public UserEntity roleAdminUpdateUser(UserDTORoleAdmin userDTO) {
+//    }
 }
