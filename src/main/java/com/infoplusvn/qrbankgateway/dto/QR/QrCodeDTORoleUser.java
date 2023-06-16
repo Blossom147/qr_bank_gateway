@@ -1,19 +1,16 @@
-package com.infoplusvn.qrbankgateway.dto.common;
+package com.infoplusvn.qrbankgateway.dto.QR;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.EntityResult;
-import javax.persistence.FieldResult;
-import javax.persistence.SqlResultSetMapping;
 import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class QrCodeDTORoleUser {
-    private Long qrId;
+    private Long id;
 
     private String qrName;
 

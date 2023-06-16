@@ -17,8 +17,8 @@ public class TransCurEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "trans_cur_id")
-    private Long transCurId;
+    @Column(name = "id")
+    private Long id;
 
     @Column(unique = true, name = "string_code")
     private String stringCode;

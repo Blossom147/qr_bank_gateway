@@ -22,7 +22,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -52,11 +54,20 @@ public class UserController {
     @GetMapping("/getUser/{userName}")
     public UserAccountInfo getUserAccountInfo(@PathVariable("userName") String userName) {
         return userService.findUserAccountInfo(userName);
-
     }
+
+    @GetMapping("/getRole/{userName}")
+    public ResponseEntity<Map<String, String>> getRoles(@PathVariable("userName") String userName) {
+        String role = userService.findRolesByUserName(userName);
+
+        Map<String, String> response = new HashMap<>();
+        response.put("roles", role);
+
+        return ResponseEntity.ok(response);
+    }
+
     @PostMapping("/oauth/token")
     public ResponseEntity<?> createAuthenticationToken(@RequestHeader("Authorization") String authorization) throws Exception {
-
 
         authorization = authorization.substring(6);
         log.info("authorization: {} " , authorization );

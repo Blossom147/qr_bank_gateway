@@ -12,4 +12,6 @@ public interface BankService {
      BankEntity getBankNameByBin(String bin);
 
      BankEntity getBinByShortName(String shortName);
+
+     String getNameByBin(String bin);
 }

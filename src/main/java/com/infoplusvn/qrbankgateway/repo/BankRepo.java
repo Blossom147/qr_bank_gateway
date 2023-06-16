@@ -12,5 +12,7 @@ public interface BankRepo extends JpaRepository<BankEntity, Long> {
     @Query("SELECT t from BankEntity t where t.shortName = :shortName ")
     BankEntity findByShortName(@Param("shortName") String shortName);
 
+    @Query("SELECT t.shortName from BankEntity t where t.bin = :bin ")
+    String findNameByBin(@Param("bin") String bin);
 
 }

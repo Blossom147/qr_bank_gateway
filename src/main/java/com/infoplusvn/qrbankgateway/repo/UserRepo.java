@@ -20,6 +20,9 @@ public interface UserRepo extends JpaRepository<UserEntity, Long> {
 
     UserEntity findEmailByUsername(String username);
 
+    @Query("SELECT t.roles from UserEntity t where t.username = :username ")
+    String findRolesByUserName(@Param("username") String username);
+
 
     @Query("SELECT t.email from UserEntity t where t.email = :email")
     String findMail(@Param("email") String email);

@@ -5,7 +5,7 @@
 
 
 
-    <select id="findUserAccount" resultType="com.infoplusvn.qrbankgateway.dto.request.GenerateQRRequest">
+    <select id="findUserAccount" resultType="com.infoplusvn.qrbankgateway.dto.QR.GenerateQRRequest">
         select u.first_name,u.last_name,a.account_number from user u join app_account a on u.id = a.user_id where u.username = #{userName}
     </select>
 

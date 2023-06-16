@@ -6,8 +6,11 @@ import com.infoplusvn.qrbankgateway.dto.request.Payment.PaymentRequestGW;
 import com.infoplusvn.qrbankgateway.dto.response.LookupIssuer.LookupIssuerResponseGW;
 import com.infoplusvn.qrbankgateway.entity.TransactionActivityEntity;
 import com.infoplusvn.qrbankgateway.entity.TransactionEntity;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 public interface TransactionService {
@@ -27,7 +30,12 @@ public interface TransactionService {
 
     List<TransactionDTO> getAllTransactions();
 
-    //List<TransactionEntity> getAllTransactions();
+    List<TransactionDTO> getTransactions(String type,
+                                         String status,
+                                         LocalDate startDate,
+                                          LocalDate  endDate);
+
+    Long countTransactions();
 
     List<TransactionActivityEntity> getAllActivity();
 

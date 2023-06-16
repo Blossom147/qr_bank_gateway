@@ -17,8 +17,8 @@ import java.util.Set;
 public class TransactionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "transaction_id")
-    private Long transactionId;
+    @Column(name = "id")
+    private Long id;
 
     private String bankCode;
 

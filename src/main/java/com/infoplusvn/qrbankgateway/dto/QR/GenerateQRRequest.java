@@ -1,4 +1,4 @@
-package com.infoplusvn.qrbankgateway.dto.request;
+package com.infoplusvn.qrbankgateway.dto.QR;
 
 import com.infoplusvn.qrbankgateway.dto.common.Header.HeaderGW;
 import lombok.Data;

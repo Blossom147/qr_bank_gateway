@@ -7,12 +7,17 @@ import com.infoplusvn.qrbankgateway.dto.request.Payment.PaymentRequestGW;
 import com.infoplusvn.qrbankgateway.dto.response.LookupIssuer.LookupIssuerResponseGW;
 import com.infoplusvn.qrbankgateway.entity.TransactionActivityEntity;
 import com.infoplusvn.qrbankgateway.entity.TransactionEntity;
+import com.infoplusvn.qrbankgateway.repo.BankRepo;
 import com.infoplusvn.qrbankgateway.repo.TransactionActivityRepo;
 import com.infoplusvn.qrbankgateway.repo.TransactionRepo;
+import com.infoplusvn.qrbankgateway.service.BankService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -22,6 +27,9 @@ public class TransactionServiceImpl implements com.infoplusvn.qrbankgateway.serv
 
     @Autowired
     private TransactionActivityRepo activityRepo;
+
+    @Autowired
+    private BankService bankService;
 
     @Override
     public TransactionEntity createTransactionPayment(PaymentRequestGW paymentRequestGW,String type, String transStep, String transStepStatus, String transStepDesc) {
@@ -47,7 +55,7 @@ public class TransactionServiceImpl implements com.infoplusvn.qrbankgateway.serv
 
         transaction.setServiceCode("QR_PUSH");
 
-        transaction.setSenderBank(paymentRequestGW.getHeader().getBkCd());
+        transaction.setSenderBank(bankService.getNameByBin(paymentRequestGW.getHeader().getBkCd()));
 
         transaction.setReceiverBank(paymentRequestGW.getData().getParticipant().getReceivingInstitutionId());
 
@@ -82,11 +90,9 @@ public class TransactionServiceImpl implements com.infoplusvn.qrbankgateway.serv
 
         transaction.setBrandCode(lookupIssuerRequestGW.getHeaderGW().getBrCd());
 
-//        transaction.setTransDate(lookupIssuerRequestGW.getHeaderGW().getTrnDt());
 
         transaction.setTransDate(CommonConstant.TRANSACTION_DATE);
 
-//        transaction.setRefferenceNo(lookupIssuerRequestGW.getHeaderGW().getRefNo());
 
         transaction.setRefferenceNo(CommonConstant.REFERENCE_NUMBER);
 
@@ -102,7 +108,7 @@ public class TransactionServiceImpl implements com.infoplusvn.qrbankgateway.serv
 
         transaction.setServiceCode("QR_PUSH");
 
-        transaction.setSenderBank(lookupIssuerRequestGW.getHeaderGW().getBkCd());
+        transaction.setSenderBank(bankService.getNameByBin(lookupIssuerRequestGW.getHeaderGW().getBkCd()));
 
         transaction.setReceiverBank(lookupIssuerRequestGW.getHeaderGW().getBkCd());
 //
@@ -186,6 +192,19 @@ public class TransactionServiceImpl implements com.infoplusvn.qrbankgateway.serv
     @Override
     public List<TransactionDTO> getAllTransactions() {
         return transactionRepo.getAllTransaction();
+    }
+
+    @Override
+    public List<TransactionDTO> getTransactions(String type,
+                                                String status,
+                                                LocalDate startDate,
+                                                LocalDate  endDate) {
+        return transactionRepo.getTransaction(type,status,startDate,endDate);
+    }
+
+    @Override
+    public Long countTransactions() {
+        return transactionRepo.countTransactions();
     }
 
     @Override

@@ -47,4 +47,7 @@ public class TransactionDTO {
 
     //Trạng thái giao dịch
     private String errorCode;
+
+    //THời gian giao dịch
+//    private String transDate;
 }

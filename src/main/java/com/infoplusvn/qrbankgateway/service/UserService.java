@@ -74,6 +74,10 @@ public class UserService {
 
     }
 
+    public String findRolesByUserName(String username){
+       return userRepo.findRolesByUserName(username);
+    }
+
     public UserEntity deactiveUser(UserDTORoleAdmin userRequest) {
 
         UserEntity user = userRepo.findByUsername(userRequest.getUsername());
@@ -99,7 +103,4 @@ public class UserService {
         return userRepo.findByEmail(email);
     }
 
-//    public UserEntity getEmailByUserName
-//    public UserEntity roleAdminUpdateUser(UserDTORoleAdmin userDTO) {
-//    }
 }

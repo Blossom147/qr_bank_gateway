@@ -166,8 +166,6 @@ public class QRPaymentServiceImpl implements QRPaymentService {
                 //sent to core
                 try {
                     RestTemplate restTemplate = new RestTemplate();
-
-
                     HttpHeaders headers = new HttpHeaders();
                     headers.setContentType(MediaType.APPLICATION_JSON);
 
@@ -254,8 +252,6 @@ public class QRPaymentServiceImpl implements QRPaymentService {
                         paymentResponseGW = genMappingResGW(paymentResponseNAPAS);
                         paymentResponseGW.setHeader(header);
 
-//                        sentToIssuerBank(paymentResponseGW, header, transaction);
-//                        log.info("STEP 4: SEND_TO_CORE: " + transaction);
 
                         // Send to core
                         try {
@@ -272,7 +268,6 @@ public class QRPaymentServiceImpl implements QRPaymentService {
                             HttpEntity<PaymentResponseGW> requestDTOCore = new HttpEntity<>(paymentResponseGW, headers);
 
                             // Gọi API sử dụng phương thức POST và truyền vào body là đối tượng requestEntity
-
                             // InfoGW gửi bản tin chuẩn GW sang Issuer Bank
                             restTemplate.postForLocation(PaymentConstant.API_URL_SENT_TO_CORE, requestDTO);
 
@@ -282,6 +277,8 @@ public class QRPaymentServiceImpl implements QRPaymentService {
                             transactionService.updateSentDt(transaction, LocalDateTime.now());
 
                             transactionService.createActivity(transaction, paymentResponseGWJson, paymentResponseGW.getHeader().getErrCode(), paymentResponseGW.getHeader().getErrDesc(), "SEND_TO_CORE", "00",PaymentConstant.RESPONSE);
+                            transactionService.updateErrCodeDesc(transaction, PaymentConstant.STEP_STATUS_SUCCESS_CODE, PaymentConstant.STEP_STATUS_SUCCESS_DESC);
+
                             log.info("STEP 4: SEND_TO_CORE: " + transaction);
 
                             return paymentResponseGW;
@@ -326,7 +323,6 @@ public class QRPaymentServiceImpl implements QRPaymentService {
                     transactionService.updateTransStep(transaction, PaymentConstant.STEP_SENT, PaymentConstant.STEP_STATUS_ERROR_CODE, PaymentConstant.STEP_STATUS_ERROR_DESC);
                     transactionService.updateSentDt(transaction, LocalDateTime.now());
                     transactionService.updateErrCodeDesc(transaction, paymentResponseGW.getHeader().getErrCode(), paymentResponseGW.getHeader().getErrDesc());
-
 
                     transactionService.createActivity(transaction, paymentRequestNAPASJson, paymentResponseGW.getHeader().getErrCode(), paymentResponseGW.getHeader().getErrDesc(), PaymentConstant.ACTIVITY_STEP_SEND_TO_NAPAS, PaymentConstant.STEP_STATUS_ERROR_CODE,PaymentConstant.REQUEST);
                     log.info("STEP 2: SEND_TO_NAPAS: " + transaction);

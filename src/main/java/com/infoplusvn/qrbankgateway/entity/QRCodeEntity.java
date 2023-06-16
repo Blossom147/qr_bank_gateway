@@ -17,8 +17,8 @@ import java.time.LocalDateTime;
 public class QRCodeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "qr_id")
-    private Long qrId;
+    @Column(name = "id")
+    private Long id;
 
     @Column(name = "qr_name")
     private String qrName;

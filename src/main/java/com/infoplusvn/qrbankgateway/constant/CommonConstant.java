@@ -43,7 +43,7 @@ public class CommonConstant {
     private static String genRefNo(String date){
         Random random = new Random();
 
-        long randomNumber = random.nextLong() % 100000000000L;
+        long randomNumber = Math.abs(random.nextLong() % 100000000000L);
         String formattedNumber = String.format("%011d", randomNumber);
 
         return date + formattedNumber;

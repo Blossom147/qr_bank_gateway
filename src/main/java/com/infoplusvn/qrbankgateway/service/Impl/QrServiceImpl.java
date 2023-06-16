@@ -8,12 +8,7 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import com.infoplusvn.qrbankgateway.constant.CommonConstant;
 import com.infoplusvn.qrbankgateway.constant.ErrorDefination;
 import com.infoplusvn.qrbankgateway.constant.QRCodeFormat;
-import com.infoplusvn.qrbankgateway.dto.common.ChangeQRNameRequest;
-import com.infoplusvn.qrbankgateway.dto.common.Header.HeaderGW;
-import com.infoplusvn.qrbankgateway.dto.common.QrCodeDTORoleUser;
-import com.infoplusvn.qrbankgateway.dto.request.DeCodeQRRequest;
-import com.infoplusvn.qrbankgateway.dto.request.GenerateAdQR;
-import com.infoplusvn.qrbankgateway.dto.request.GenerateQRRequest;
+import com.infoplusvn.qrbankgateway.dto.QR.*;
 import com.infoplusvn.qrbankgateway.dto.response.DeCodeQRResponse;
 import com.infoplusvn.qrbankgateway.dto.response.GenerateQRResponse;
 import com.infoplusvn.qrbankgateway.entity.BankEntity;
@@ -505,6 +500,11 @@ public class QrServiceImpl implements QrService {
         return generateQRResponse;
     }
 
+    @Override
+    public Long countQRCode() {
+        return qrCodeRepo.countQRCode();
+    }
+
     private void createQREntity(GenerateQRRequest qrRequest, GenerateAdQR adQR, String qrType, String qrImage, String qrThemeImage) {
         QRCodeEntity qrCodeEntity = new QRCodeEntity();
 
@@ -568,10 +568,18 @@ public class QrServiceImpl implements QrService {
 
     }
     private String getQRNameFromQRText(String text) {
-        return text.substring(text.indexOf('<') + 1, text.indexOf('>'));
+        int start = text.indexOf('<');
+        int end = text.indexOf('>');
+        if (start != -1 && end != -1 && end > start) {
+            return text.substring(start + 1, end);
+        } else {
+            // Xử lý khi không tìm thấy ký tự '<' hoặc '>' hoặc khi vị trí không hợp lệ
+            return ""; // hoặc giá trị khác tuỳ theo yêu cầu
+        }
     }
+
     public List<QRCodeEntity> getAllQRCodes() {
-        return qrCodeRepo.findAll();
+        return qrCodeRepo.getAllQR();
     }
 
     public List<QrCodeDTORoleUser> finByCreatedUserRoleUser(String createdUser) {
@@ -581,13 +589,13 @@ public class QrServiceImpl implements QrService {
         return qrCodeRepo.findByCreatedUserAndEnabledFalseRoleUser(createdUser);
     }
 
-    public QRCodeEntity findByQrId(Long qrId) {
-        return qrCodeRepo.findByQrId(qrId);
+    public QRCodeEntity findById(Long qrId) {
+        return qrCodeRepo.getById(qrId);
     }
 
     public void disableQRCode(Long qrId) {
 
-        QRCodeEntity qrCodeEntity = qrCodeRepo.findByQrId(qrId);
+        QRCodeEntity qrCodeEntity = qrCodeRepo.getById(qrId);
 
         qrCodeEntity.setEnabled(false);
         qrCodeEntity.setUpdateOn(LocalDateTime.now());
@@ -598,7 +606,7 @@ public class QrServiceImpl implements QrService {
 
     public void enableQRCode(Long qrId) {
 
-        QRCodeEntity qrCodeEntity = qrCodeRepo.findByQrId(qrId);
+        QRCodeEntity qrCodeEntity = qrCodeRepo.getById(qrId);
 
         qrCodeEntity.setEnabled(true);
         qrCodeEntity.setUpdateOn(LocalDateTime.now());
@@ -617,7 +625,7 @@ public class QrServiceImpl implements QrService {
     }
 
     public void changeQRName(ChangeQRNameRequest changeQRNameRequest) {
-        QRCodeEntity qrCodeEntity = qrCodeRepo.findByQrId(changeQRNameRequest.getQrId());
+        QRCodeEntity qrCodeEntity = qrCodeRepo.getById(changeQRNameRequest.getQrId());
 
         qrCodeEntity.setQrName(changeQRNameRequest.getQrName().trim());
 
@@ -628,5 +636,6 @@ public class QrServiceImpl implements QrService {
     public void deleteQR(Long id){
         qrCodeRepo.deleteById(id);
     }
+
 
 }

@@ -17,8 +17,8 @@ public class BankEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "bank_id")
-    private int bankId;
+    @Column(name = "id")
+    private int id;
 
     @Column(name = "bank_name")
     private String bankName;

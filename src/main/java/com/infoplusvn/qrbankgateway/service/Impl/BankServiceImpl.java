@@ -31,5 +31,11 @@ public class BankServiceImpl implements BankService {
         return bankRepo.findByShortName(shortName);
     }
 
+    @Override
+    public String getNameByBin(String bin) {
+        String bankName =  bankRepo.findNameByBin(bin);
+        return bankName;
+    }
+
 
 }
