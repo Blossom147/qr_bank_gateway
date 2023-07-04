@@ -32,8 +32,8 @@ public interface TransactionService {
 
     List<TransactionDTO> getTransactions(String type,
                                          String status,
-                                         LocalDate startDate,
-                                          LocalDate  endDate);
+                                         LocalDateTime  startDate,
+                                         LocalDateTime   endDate);
 
     Long countTransactions();
 

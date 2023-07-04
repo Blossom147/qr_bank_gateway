@@ -21,9 +21,6 @@ public class QrCodeDTORoleUser {
     //header
     private String trnDt;
 
-    //qrInfoIBFT
-    private String customerName;
-
     //qrInfoAD
     private String text;
 

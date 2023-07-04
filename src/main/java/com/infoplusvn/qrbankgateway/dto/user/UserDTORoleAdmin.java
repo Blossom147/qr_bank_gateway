@@ -10,6 +10,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDTORoleAdmin {
+
+    private Long id;
+
     private String username;
 
     private boolean enabled;
@@ -31,5 +34,7 @@ public class UserDTORoleAdmin {
     private String firstName;
 
     private String lastName;
+
+    private Long userId;
 
 }

@@ -197,8 +197,8 @@ public class TransactionServiceImpl implements com.infoplusvn.qrbankgateway.serv
     @Override
     public List<TransactionDTO> getTransactions(String type,
                                                 String status,
-                                                LocalDate startDate,
-                                                LocalDate  endDate) {
+                                                LocalDateTime  startDate,
+                                                LocalDateTime   endDate) {
         return transactionRepo.getTransaction(type,status,startDate,endDate);
     }
 

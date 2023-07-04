@@ -276,7 +276,7 @@ public class QRPaymentServiceImpl implements QRPaymentService {
                             transactionService.updateErrCodeDesc(transaction, PaymentConstant.STEP_STATUS_SUCCESS_CODE, PaymentConstant.STEP_STATUS_SUCCESS_DESC);
                             transactionService.updateSentDt(transaction, LocalDateTime.now());
 
-                            transactionService.createActivity(transaction, paymentResponseGWJson, paymentResponseGW.getHeader().getErrCode(), paymentResponseGW.getHeader().getErrDesc(), "SEND_TO_CORE", "00",PaymentConstant.RESPONSE);
+                            transactionService.createActivity(transaction, paymentResponseGWJson, PaymentConstant.STEP_STATUS_SUCCESS_CODE, PaymentConstant.STEP_STATUS_SUCCESS_DESC, "SEND_TO_CORE", "00",PaymentConstant.RESPONSE);
                             transactionService.updateErrCodeDesc(transaction, PaymentConstant.STEP_STATUS_SUCCESS_CODE, PaymentConstant.STEP_STATUS_SUCCESS_DESC);
 
                             log.info("STEP 4: SEND_TO_CORE: " + transaction);

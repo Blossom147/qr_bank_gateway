@@ -28,66 +28,68 @@ public class UserService {
         return userRepo.findAll();
     }
 
-    public UserAccountInfo findUserAccountInfo(String userName){
-        return userRepo.findUserAccountInfo(userName);
-    }
+//    public UserAccountInfo findUserAccountInfo(String userName){
+//        return userRepo.findUserAccountInfo(userName);
+//    }
 
-    public UserEntity createUser(UserDTORegisterRequest userRequest) {
-        UserEntity userEntity = new UserEntity();
-        userEntity.setUsername(userRequest.getUsername());
-        userEntity.setPassword(passwordEncoder.encode(userRequest.getPassword()));
-        userEntity.setEmail(userRequest.getEmail());
-        userEntity.setEnabled(true);
-        userEntity.setCreateOn(LocalDateTime.now());
-        userEntity.setRoles(CommonConstant.ROLE_USER);
-
-        return userRepo.save(userEntity);
-    }
+//    public UserEntity createUser(UserDTORegisterRequest userRequest) {
+//        UserEntity userEntity = new UserEntity();
+//        userEntity.setUsername(userRequest.getUsername());
+//        userEntity.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+//        userEntity.setEmail(userRequest.getEmail());
+//        userEntity.setEnabled(true);
+//        userEntity.setCreateOn(LocalDateTime.now());
+//        userEntity.setRoles(CommonConstant.ROLE_USER);
+//
+//        return userRepo.save(userEntity);
+//    }
 
 
     public UserEntity roleUserUpdateUser(UserDTORoleUser userRequest) {
 
-        UserEntity userEntity = userRepo.findByUsername(userRequest.getUsername());
-
-        userEntity.setUsername(userRequest.getUsername());
-        //userEntity.setPassword(userRequest.getPassword());
-        userEntity.setEmail(userRequest.getEmail());
-        userEntity.setPhone(userRequest.getPhone());
-        userEntity.setCompany(userRequest.getCompany());
-        userEntity.setAddress(userRequest.getAddress());
-        userEntity.setFirstName(userRequest.getFirstName());
-        userEntity.setLastName(userRequest.getLastName());
-
-        return userRepo.save(userEntity);
+//        UserEntity userEntity = userRepo.findByUsername(userRequest.getUsername());
+//
+//        userEntity.setUsername(userRequest.getUsername());
+//        userEntity.setPassword(userRequest.getPassword());
+//        userEntity.setEmail(userRequest.getEmail());
+//        userEntity.setPhone(userRequest.getPhone());
+//        userEntity.setCompany(userRequest.getCompany());
+//        userEntity.setAddress(userRequest.getAddress());
+//        userEntity.setFirstName(userRequest.getFirstName());
+//        userEntity.setLastName(userRequest.getLastName());
+//
+//        return userRepo.save(userEntity);
+        return null;
     }
 
-    public UserEntity roleAdminUpdateUser(UserDTORoleAdmin userDTO){
-        UserEntity userEntity = userRepo.findByUsername(userDTO.getUsername());
+//    public UserEntity roleAdminUpdateUser(UserDTORoleAdmin userDTO){
+//        UserEntity userEntity = userRepo.findByUsername(userDTO.getUsername());
 //        userEntity.setUsername(userDTO.getUsername());
 //        userEntity.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        userEntity.setEmail(userDTO.getEmail());
-        userEntity.setPhone(userDTO.getPhone());
-        userEntity.setEnabled(userDTO.isEnabled());
-        userEntity.setRoles(userDTO.getRoles());
+//        userEntity.setEmail(userDTO.getEmail());
+//        userEntity.setPhone(userDTO.getPhone());
+//        userEntity.setEnabled(userDTO.isEnabled());
+//        userEntity.setRoles(userDTO.getRoles());
+//
+//        return userRepo.save(userEntity);
+//        return null;
+//
+//    }
 
-        return userRepo.save(userEntity);
+//    public String findRolesByUserName(String username){
+//       return userRepo.findRolesByUserName(username);
+//    }
 
-    }
+//    public UserEntity deactiveUser(UserDTORoleAdmin userRequest) {
+//
+//        UserEntity user = userRepo.findByUsername(userRequest.getUsername());
+////        user.setEnabled(false);
+//        return userRepo.save(user);
+//    }
 
-    public String findRolesByUserName(String username){
-       return userRepo.findRolesByUserName(username);
-    }
-
-    public UserEntity deactiveUser(UserDTORoleAdmin userRequest) {
-
-        UserEntity user = userRepo.findByUsername(userRequest.getUsername());
-        user.setEnabled(false);
-        return userRepo.save(user);
-    }
-
-    public void  deleteByUserName(String username){
-        userRepo.deleteByUsername(username);
-    }
+//    public void  deleteByUserName(String username){
+//        userRepo.deleteByUsername(username);
+//    }
 
 
 
@@ -95,9 +97,9 @@ public class UserService {
         return userRepo.findOneById(id);
     }
 
-    public UserEntity getUserByUserName(String username) {
-        return userRepo.findByUsername(username);
-    }
+//    public UserEntity getUserByUserName(String username) {
+//        return userRepo.findByUsername(username);
+//    }
 
     public UserEntity getUserByEmail(String email) {
         return userRepo.findByEmail(email);

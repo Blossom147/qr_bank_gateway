@@ -8,7 +8,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ChangeQRNameRequest {
-    private Long qrId;
+    private Long Id;
 
     private String qrName;
+
+    private String qrType;
+
+    private String createdUser;
 }

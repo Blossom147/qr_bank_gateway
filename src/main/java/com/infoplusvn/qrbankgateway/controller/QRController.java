@@ -1,21 +1,28 @@
 package com.infoplusvn.qrbankgateway.controller;
 
 import com.google.zxing.WriterException;
-import com.infoplusvn.qrbankgateway.dto.QR.DeCodeQRRequest;
-import com.infoplusvn.qrbankgateway.dto.QR.GenerateAdQR;
-import com.infoplusvn.qrbankgateway.dto.QR.GenerateQRRequest;
-import com.infoplusvn.qrbankgateway.dto.QR.QrCodeListDTO;
+import com.infoplusvn.qrbankgateway.dto.QR.*;
+import com.infoplusvn.qrbankgateway.dto.common.Payment.TransactionDTO;
+import com.infoplusvn.qrbankgateway.dto.response.DataResponse;
 import com.infoplusvn.qrbankgateway.dto.response.DeCodeQRResponse;
 import com.infoplusvn.qrbankgateway.dto.response.GenerateQRResponse;
+import com.infoplusvn.qrbankgateway.dto.user.EditAccountDTO;
+import com.infoplusvn.qrbankgateway.dto.user.UserDTORoleAdmin;
+import com.infoplusvn.qrbankgateway.entity.AccountEntity;
 import com.infoplusvn.qrbankgateway.entity.QRCodeEntity;
+import com.infoplusvn.qrbankgateway.entity.UserEntity;
 import com.infoplusvn.qrbankgateway.service.Impl.QrServiceImpl;
 import com.infoplusvn.qrbankgateway.service.QrService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.time.LocalDate;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -37,7 +44,7 @@ public class QRController {
     }
 
     // Lấy QR theo id
-    @GetMapping(value = "/getByid/{id}")
+    @GetMapping(value = "/getQRByid/{id}")
     public QRCodeEntity getQR(@PathVariable("id") Long id){
         return qrServiceImpl.findById(id);
     }
@@ -73,5 +80,39 @@ public class QRController {
         qrServiceImpl.deleteQR(id);
     }
 
+    // Lấy QR theo tài khoản user
+    @GetMapping(value = "/getQRByUsername/{username}")
+    public List<QrCodeDTORoleUser> getQR(@PathVariable("username") String username){
+        return qrService.getQRByUsername(username);
+    }
 
+    // Tìm kiếm QR
+    @GetMapping(value = "/qrSearch")
+    public List<QrCodeDTORoleUser> qrSearch(
+            @RequestParam(value = "qrType", required = false) String qrType,
+            @RequestParam(value = "username", required = false) String username) {
+
+        return qrService.searchQR(qrType,username);
+    }
+
+    // Update QR
+    @PutMapping(value = "/updateQR")
+    public ResponseEntity<DataResponse> updateUser(@RequestBody ChangeQRNameRequest qrDTO) {
+        try {
+            QRCodeEntity getQRById = qrServiceImpl.findById(qrDTO.getId());
+
+            if(getQRById == null) {
+                return ResponseEntity.ok().body(new DataResponse().setStatus("500").setMessage("Không tìm thấy mã QR").setData(null));
+            }
+            else {
+                QRCodeEntity qrCodeEntity = qrServiceImpl.updateQR(qrDTO);
+
+                return ResponseEntity.ok().body(new DataResponse().setStatus("200").setMessage("Updated success"));
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new DataResponse().setStatus("500").setMessage(ex.getMessage()).setData(null));
+        }
+    }
 }

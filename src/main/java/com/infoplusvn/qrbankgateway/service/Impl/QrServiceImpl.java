@@ -489,7 +489,6 @@ public class QrServiceImpl implements QrService {
             String qrType = qrRequest.getData().getQrInfo().getAdType().trim();
             String qrImage = genBase64FromImage(genQRImage(qrString));
 
-
             generateQRResponse.getData().setQrImage(qrImage);
             if (!qrRequest.getData().getCreatedUser().trim().isEmpty()) {
                 createQREntity(null, qrRequest, qrType, qrImage, null);
@@ -503,6 +502,21 @@ public class QrServiceImpl implements QrService {
     @Override
     public Long countQRCode() {
         return qrCodeRepo.countQRCode();
+    }
+
+    @Override
+    public List<QrCodeDTORoleUser> getQRByUsername(String username) {
+        return qrCodeRepo.findByCreatedUserRoleUser(username);
+    }
+
+    @Override
+    public List<QrCodeDTORoleUser> searchQR(String qrType, String createdUser) {
+        return qrCodeRepo.searchQR(qrType,createdUser);
+    }
+
+    @Override
+    public void updateQrNameAndQrTypeById(String qrName, String qrType, Long id) {
+
     }
 
     private void createQREntity(GenerateQRRequest qrRequest, GenerateAdQR adQR, String qrType, String qrImage, String qrThemeImage) {
@@ -523,7 +537,6 @@ public class QrServiceImpl implements QrService {
             //qrInfoIBFT
             qrCodeEntity.setServiceCode(qrRequest.getData().getQrInfo().getServiceCode());
             qrCodeEntity.setCustomerId(qrRequest.getData().getQrInfo().getCustomerId());
-            qrCodeEntity.setCustomerName(qrRequest.getData().getQrInfo().getCustomerName());
             qrCodeEntity.setTransCurrency(qrRequest.getData().getQrInfo().getTransCurrency());
             qrCodeEntity.setCountryCode(qrRequest.getData().getQrInfo().getCountryCode());
             qrCodeEntity.setTransAmount(qrRequest.getData().getQrInfo().getTransAmount());
@@ -546,7 +559,7 @@ public class QrServiceImpl implements QrService {
 
             //qrInfoAd
             qrCodeEntity.setText(adQR.getData().getQrInfo().getText());
-
+            qrCodeEntity.setQrName(adQR.getData().getQrInfo().getText());
             if (adQR.getData().getQrInfo().getAdType().equals("URL")) {
                 qrCodeEntity.setQrName(adQR.getData().getQrInfo().getText());
             } else {
@@ -624,13 +637,18 @@ public class QrServiceImpl implements QrService {
         return qrCodeRepo.getQrDTOById(id);
     }
 
-    public void changeQRName(ChangeQRNameRequest changeQRNameRequest) {
-        QRCodeEntity qrCodeEntity = qrCodeRepo.getById(changeQRNameRequest.getQrId());
+    public QRCodeEntity updateQR(ChangeQRNameRequest qrDTO) throws IOException, WriterException {
+        QRCodeEntity qrCodeEntity = qrCodeRepo.getById(qrDTO.getId());
 
-        qrCodeEntity.setQrName(changeQRNameRequest.getQrName().trim());
+        qrCodeEntity.setQrName(qrDTO.getQrName().trim());
+        qrCodeEntity.setQrType(qrDTO.getQrType().trim());
 
+        String qrImage = genBase64FromImage(genQRImage(qrDTO.getQrName().trim()));
+        qrCodeEntity.setQrImage(qrImage);
+        qrCodeEntity.setUpdateOn(LocalDateTime.now());
 
         qrCodeRepo.save(qrCodeEntity);
+        return qrCodeEntity;
     }
 
     public void deleteQR(Long id){

@@ -20,12 +20,6 @@ public class UserEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
-    private String username;
-
-    private String password;
-
-    private boolean enabled;
 
     @Column(unique = true)
     private String email;
@@ -41,13 +35,15 @@ public class UserEntity implements Serializable {
 
     @Column(name = "last_name")
     private String lastName;
-
-    @Column(name = "create_on")
-    private LocalDateTime createOn;
-
+//
+//    private boolean enabled;
+//
+//    @Column(name = "create_on")
+//    private LocalDateTime createOn;
+//
+//    private String roles;
 //    @ElementCollection(fetch = FetchType.EAGER)
 //    private List<String> roles;
 
-    private String roles;
 
 }

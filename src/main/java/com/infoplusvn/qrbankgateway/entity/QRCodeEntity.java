@@ -63,9 +63,6 @@ public class QRCodeEntity {
     @Column(name = "customer_id")
     private String customerId;
 
-    @Column(name = "customer_name")
-    private String customerName;
-
     @Column(name = "trans_currency")
     private String transCurrency;
 

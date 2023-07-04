@@ -9,28 +9,22 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface UserRepo extends JpaRepository<UserEntity, Long> {
 
-//    UserEntity findByUsername(String username);
-//    @Query("DELETE from com.infoplusvn.qrbankgateway.entity.UserEntity t where t.username = :username")
     @Transactional
-    void deleteByUsername (String username);
+
+    void deleteById (Long userId);
 
     UserEntity findByEmail(String email);
 
     UserEntity findOneById(Long id);
 
-    UserEntity findEmailByUsername(String username);
+//    UserEntity findEmailByUsername(String username);
 
-    @Query("SELECT t.roles from UserEntity t where t.username = :username ")
-    String findRolesByUserName(@Param("username") String username);
+//    @Query("SELECT t.roles from UserEntity t where t.username = :username ")
+//    String findRolesByUserName(@Param("username") String username);
 
 
     @Query("SELECT t.email from UserEntity t where t.email = :email")
     String findMail(@Param("email") String email);
 
-    @Query("SELECT t from UserEntity t where t.username = :username and t.enabled = true")
-    UserEntity findByUsername(@Param("username") String username);
 
-
-    @Query("SELECT u.firstName AS firstName, u.lastName AS lastName, a.accountNumber AS accountNumber, a.amount AS amount FROM UserEntity u JOIN AccountEntity a ON u.id = a.userId WHERE u.username = :userName")
-    UserAccountInfo findUserAccountInfo(@Param("userName") String userName);
 }

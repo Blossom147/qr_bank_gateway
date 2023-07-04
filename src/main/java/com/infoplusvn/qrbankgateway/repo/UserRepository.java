@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
-    @Query("SELECT u.firstName AS firstName, u.lastName AS lastName, a.accountNumber AS accountNumber FROM UserEntity u JOIN AccountEntity a ON u.id = a.userId WHERE u.username = :userName")
+    @Query("SELECT u.firstName AS firstName, u.lastName AS lastName, a.accountNumber AS accountNumber " +
+            "FROM UserEntity u JOIN AccountEntity a ON u.id = a.userId " +
+            "WHERE a.username = :userName")
     UserAccountInfo findUserAccountInfo(@Param("userName") String userName);
 }
